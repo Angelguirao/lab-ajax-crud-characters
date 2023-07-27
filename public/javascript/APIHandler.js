@@ -7,6 +7,7 @@ class APIHandler {
   async getFullList() {
     try {
       const response = await axios.get(`${this.BASE_URL}/characters`);
+      // console.log(response)
       console.log("All Characters:", response.data);
       return response.data;
     } catch (error) {
@@ -40,31 +41,26 @@ class APIHandler {
   }
 
   // Function to update a character by ID
-  async updateOneRegister(id, updatedCharacter) {
-    try {
-      const response = await axios.put(`${this.BASE_URL}/characters/${id}`, updatedCharacter);
+async updateOneRegister(id, updatedCharacter) {
+  try {
+    const response = await axios.put(`${this.BASE_URL}/characters/${id}`, updatedCharacter);
+    setTimeout(() => {
       console.log("Updated Character:", response.data);
-      return response.data;
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        console.error("Character not found");
-      } else {
-        console.error("Error updating character:", error.response.data);
-      }
-    }
+    }, 100); // Delay in milliseconds
+    return response.data;
+  } catch (error) {
+    console.error("Error updating character:", error.response.data);
   }
+}
 
- // Function to delete a character by ID
-  async deleteOneRegister(id) {
-    try {
-      const response = await axios.delete(`${this.BASE_URL}/characters/${id}`);
-      console.log(response.data);
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        console.error("Character not found");
-      } else {
-        console.error("Error deleting character:", error.response.data);
-      }
-    }
+// Function to delete a character by ID
+async deleteOneRegister(id) {
+  try {
+    const response = await axios.delete(`${this.BASE_URL}/characters/${id}`);
+    console.log("Deleted Character:",response.data);
+    return "Character has been successfully deleted";
+  } catch (error) {
+    console.error("Error deleting character:", error.response.data);
   }
+}
   }
